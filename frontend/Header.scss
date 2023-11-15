@@ -1,0 +1,33 @@
+.header-container {
+    background-color: #3CACBD;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-title-container {
+    text-align: left;
+}
+
+.header-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header-subtitle {
+    font-size: 18px;
+}
+
+.header-separator {
+    border-top: 1px solid #fff;
+    margin-top: 20px;
+    flex-grow: 1;
+    width: 100%;
+}
+
+.main-content {
+    text-align: center;
+}
