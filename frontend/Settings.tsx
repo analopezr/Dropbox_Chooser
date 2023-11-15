@@ -1,7 +1,7 @@
 import { base } from '@airtable/blocks';
 import { FieldType } from '@airtable/blocks/models';
 import { FieldPickerSynced, FormField, Input, TablePickerSynced, useGlobalConfig } from '@airtable/blocks/ui';
-import React from 'react';
+import React from 'react'; 
 import { Card, Tab, Tabs } from 'react-bootstrap';
 import './Settings.scss';
 import Header from './Header';
@@ -10,8 +10,9 @@ const Settings = () => {
     const globalConfig = useGlobalConfig();
 
     const tableId = globalConfig.get('selectedTableId') as string;
-
+    const tableAssetsId = globalConfig.get('selectedTableAssetsId') as string;
     const table = base.getTableByIdIfExists(tableId);
+    const tableAssets = base.getTableByIdIfExists(tableAssetsId);
 
     return (
         <>
@@ -22,21 +23,40 @@ const Settings = () => {
                         <FormField label="Table">
                             <TablePickerSynced globalConfigKey="selectedTableId" />
                         </FormField>
-                        {table?.id ? <>
-                        <FormField label="Asset Field" marginBottom={0}>
+                        <FormField label="Assets Table">
+                            <TablePickerSynced globalConfigKey="selectedTableAssetsId" />
+                        </FormField>
+                        {table?.id && tableAssets?.id? <>
+                        <FormField label="Asset Name Field" marginBottom={0}>
                             <FieldPickerSynced
-                                table={table}
-                                globalConfigKey="selectedAssetFieldId"
-                                placeholder="Pick the attachment field for your assets"
+                                table={tableAssets}
+                                globalConfigKey="selectedAssetNameFieldId"
+                                placeholder="Pick the Name field for your assets"
+                                allowedTypes={[FieldType.MULTILINE_TEXT, FieldType.SINGLE_LINE_TEXT, FieldType.URL]}
+                            />
+                        </FormField>
+                        <FormField label="Asset File Field" marginBottom={0}>
+                            <FieldPickerSynced
+                                table={tableAssets}
+                                globalConfigKey="selectedAssetFileFieldId"
+                                placeholder="Pick the Attachment field for your assets"
                                 allowedTypes={[FieldType.MULTIPLE_ATTACHMENTS]}
                             />
                         </FormField>
-                        <FormField label="Asset Links Field" marginBottom={0}>
+                        <FormField label="Asset Link Field" marginBottom={0}>
                             <FieldPickerSynced
-                                table={table}
+                                table={tableAssets}
                                 globalConfigKey="selectedAssetLinkFieldId"
-                                placeholder="Pick the attachment field for your asset links"
+                                placeholder="Pick the URL field for your asset link"
                                 allowedTypes={[FieldType.MULTILINE_TEXT, FieldType.SINGLE_LINE_TEXT, FieldType.URL]}
+                            />
+                        </FormField>
+                        <FormField label="Asset Record Link Field" marginBottom={0}>
+                            <FieldPickerSynced
+                                table={tableAssets}
+                                globalConfigKey="selectedAssetLinkedFieldId"
+                                placeholder="Pick the record link field for your assets"
+                                allowedTypes={[FieldType.MULTIPLE_RECORD_LINKS]}
                             />
                         </FormField>
                         <FormField label="Dropbox API Key" marginBottom={0}>
