@@ -6,14 +6,16 @@ import UpdateRecords from "./UpdateRecords";
 import './App.scss';
 
 const App = () => {
-
     const globalConfig = useGlobalConfig();
-    const TABLE_ID = globalConfig.get('selectedTableId');
-    const ASSET_FIELD_ID = globalConfig.get('selectedAssetFieldId');
-    const ASSET_LINKS_FIELD_ID = globalConfig.get('selectedAssetLinkFieldId');
+    const MAIN_TABLE_ID = globalConfig.get('selectedTableId');
+    const ASSET_TABLE_ID = globalConfig.get('selectedTableAssetsId');
+    const fieldToUpdateLinks = globalConfig.get('selectedAssetLinkFieldId');
+    const fieldToUpdateAssets = globalConfig.get('selectedAssetFileFieldId');
+    const fieldToUpdateName = globalConfig.get('selectedAssetNameFieldId');
+    const fieldToUpdateLinkedField = globalConfig.get('selectedAssetLinkedFieldId');
     const API_KEY = globalConfig.get('apiKey');
 
-    const isAllSet = TABLE_ID && ASSET_FIELD_ID && ASSET_LINKS_FIELD_ID && API_KEY;
+    const isAllSet = MAIN_TABLE_ID && ASSET_TABLE_ID && fieldToUpdateLinks && fieldToUpdateAssets && fieldToUpdateName && fieldToUpdateLinkedField && API_KEY;
 
     // Show settings button
     const [isShowingSettings, setIsShowingSettings] = useState(false);
